@@ -11,8 +11,11 @@ import org.openjdk.jmh.annotations._
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 class ImplVsImplicitlyAddable {
 
+  @CompilerControl(CompilerControl.Mode.EXCLUDE)
   def addTogetherBase[A: Addable](x: A, y: A) = implicitly[Addable[A]].add(x, y)
+  @CompilerControl(CompilerControl.Mode.EXCLUDE)
   def addTogetherImp[A: Addable](x: A, y: A) = imp[Addable[A]].add(x, y)
+  @CompilerControl(CompilerControl.Mode.EXCLUDE)
   def addTogetherExplicit[A](x: A, y: A)(implicit addable: Addable[A]) = addable.add(x, y)
 
   @Benchmark
